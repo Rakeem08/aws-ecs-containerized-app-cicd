@@ -42,7 +42,7 @@ data "aws_iam_policy_document" "github_actions_trust" {
       variable = "token.actions.githubusercontent.com:sub"
 
       values = [
-        "repo:Rakeem08/cloud-engineer-tech-challenge-1:ref:refs/heads/gitops"
+        "repo:Rakeem08@300660116/cloud-engineer-tech-challenge-1@1331382076:ref:refs/heads/gitops"
       ]
     }
   }
@@ -89,7 +89,7 @@ data "aws_iam_policy_document" "github_actions_deployment" {
   }
 
   statement {
-    sid    = "DeployECSservices"
+    sid    = "DeployECSServices"
     effect = "Allow"
 
     actions = [
