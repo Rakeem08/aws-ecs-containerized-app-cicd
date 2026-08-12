@@ -31,13 +31,6 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      - name: Show GitHub immutable identity
-        run: |
-          echo "Repository: ${{ github.repository }}"
-          echo "Owner ID: ${{ github.repository_owner_id }}"
-          echo "Repository ID: ${{ github.repository_id }}"
-          echo "Branch: ${{ github.ref }}"
-
       - name: Check out GitOps branch
         uses: actions/checkout@v7
 
