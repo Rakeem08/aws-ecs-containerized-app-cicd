@@ -1,0 +1,99 @@
+name: Deploy to Amazon ECS
+
+on:
+  push:
+    branches:
+      - gitops
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: gitops-ecs-deployment
+  cancel-in-progress: false
+
+env:
+  AWS_REGION: us-east-1
+  AWS_ROLE_ARN: arn:aws:iam::067514125942:role/rakeem-devops-github-actions-role
+  ECR_REGISTRY: 067514125942.dkr.ecr.us-east-1.amazonaws.com
+  FRONTEND_REPOSITORY: rakeem-devops-frontend
+  BACKEND_REPOSITORY: rakeem-devops-backend
+  ECS_CLUSTER: rakeem-devops-cluster
+  FRONTEND_SERVICE: rakeem-devops-frontend-service
+  BACKEND_SERVICE: rakeem-devops-backend-service
+
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out GitOps branch
+        uses: actions/checkout@v7
+
+      - name: Configure temporary AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6.2.3
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          role-session-name: GitHubActionsECSDeployment
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Verify AWS identity
+        run: aws sts get-caller-identity
+
+      - name: Log in to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build frontend image
+        run: |
+          docker build \
+            --build-arg REACT_APP_API_URL=/api \
+            -t "$ECR_REGISTRY/$FRONTEND_REPOSITORY:$GITHUB_SHA" \
+            -t "$ECR_REGISTRY/$FRONTEND_REPOSITORY:latest" \
+            ./frontend
+
+      - name: Build backend image
+        run: |
+          docker build \
+            -t "$ECR_REGISTRY/$BACKEND_REPOSITORY:$GITHUB_SHA" \
+            -t "$ECR_REGISTRY/$BACKEND_REPOSITORY:latest" \
+            ./backend
+
+      - name: Push frontend image
+        run: |
+          docker push "$ECR_REGISTRY/$FRONTEND_REPOSITORY:$GITHUB_SHA"
+          docker push "$ECR_REGISTRY/$FRONTEND_REPOSITORY:latest"
+
+      - name: Push backend image
+        run: |
+          docker push "$ECR_REGISTRY/$BACKEND_REPOSITORY:$GITHUB_SHA"
+          docker push "$ECR_REGISTRY/$BACKEND_REPOSITORY:latest"
+
+      - name: Deploy backend service
+        run: |
+          aws ecs update-service \
+            --cluster "$ECS_CLUSTER" \
+            --service "$BACKEND_SERVICE" \
+            --force-new-deployment \
+            --region "$AWS_REGION"
+
+      - name: Deploy frontend service
+        run: |
+          aws ecs update-service \
+            --cluster "$ECS_CLUSTER" \
+            --service "$FRONTEND_SERVICE" \
+            --force-new-deployment \
+            --region "$AWS_REGION"
+
+      - name: Wait for ECS services
+        run: |
+          aws ecs wait services-stable \
+            --cluster "$ECS_CLUSTER" \
+            --services "$BACKEND_SERVICE" "$FRONTEND_SERVICE" \
+            --region "$AWS_REGION"
+
+      - name: Deployment completed
+        run: echo "GitOps deployment completed successfully."
