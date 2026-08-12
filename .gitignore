@@ -1,1 +1,17 @@
 node_modules/
+
+# Terraform local files
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+terraform/terraform.tfvars
+
+# Private keys
+*.pem
+*.key
+
+# Saved Terraform plans
+terraform/tfplan
