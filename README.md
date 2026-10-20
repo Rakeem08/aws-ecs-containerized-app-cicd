@@ -12,16 +12,11 @@ Jenkins credentials are provided privately in the submission form and are not st
 
 ## Architecture
 
-```mermaid
-flowchart TD
-    User[Internet User] --> ALB[Application Load Balancer]
-    ALB -->|/| Frontend[Frontend ECS Fargate Service]
-    ALB -->|/api| Backend[Backend ECS Fargate Service]
-    Jenkins[Jenkins EC2 Server] --> ECR[Amazon ECR]
-    Jenkins --> ECS[Amazon ECS Cluster]
-    ECR --> Frontend
-    ECR --> Backend
-```
+![AWS ECS Fargate delivery and application runtime](docs/images/ecs-architecture.svg)
+
+[Open the full-size architecture graphic](docs/images/ecs-architecture.svg)
+
+The public ALB routes the default path to the React service and `/api` to the Express service. Both Fargate services run in private subnets. Jenkins builds and pushes the images, forces new service deployments, and waits for stability. Dotted arrows show deployment, image, or telemetry flow. The current task definitions use `:latest`; the pipeline also publishes build-number tags.
 
 ## AWS Infrastructure
 
