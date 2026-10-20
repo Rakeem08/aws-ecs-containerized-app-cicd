@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1220" viewBox="0 0 1800 1220" role="img" aria-labelledby="title desc"><title id="title">AWS Container Deployment</title><desc id="desc">GitHub and Jenkins build images for ECR. A public ALB routes browser traffic to frontend and backend Fargate services in private subnets. Both services export logs and support CPU autoscaling.</desc><defs>
+<marker id="blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#2563eb"/></marker>
+<marker id="orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#d97706"/></marker>
+<marker id="purple" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#7c3aed"/></marker>
+<marker id="green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#168563"/></marker>
+<marker id="red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#dc4558"/></marker>
+<marker id="ink" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#12223b"/></marker>
+<marker id="muted" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#52647c"/></marker>
+</defs>
+<rect x="0" y="0" width="1800" height="1220" rx="0" fill="#f5f8fc" stroke="#f5f8fc"/>
+<text x="60" y="65" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#2563eb" font-weight="700">RAKEEM BREWINGTON  /  CLOUD ENGINEERING PORTFOLIO</text>
+<text x="60" y="123" font-family="DejaVu Sans, sans-serif" font-size="42" fill="#12223b" font-weight="700">AWS Container Deployment</text>
+<text x="60" y="164" font-family="DejaVu Sans, sans-serif" font-size="22" fill="#52647c" font-weight="400">Build once. Publish images. Deploy React and Express on ECS Fargate.</text>
+<rect x="55" y="205" width="1690" height="225" rx="24" fill="#edf3fa" stroke="#d3dfed"/>
+<text x="80" y="243" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#3f5675" font-weight="700">DELIVERY PIPELINE</text>
+<path d="M380 335H480" fill="none" stroke="#2563eb" stroke-width="2.5" marker-end="url(#blue)"/>
+<text x="400" y="315" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#2563eb" font-weight="400">commit</text>
+<path d="M780 335H880" fill="none" stroke="#2563eb" stroke-width="2.5" marker-end="url(#blue)"/>
+<text x="790" y="315" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#2563eb" font-weight="400">webhook</text>
+<path d="M1180 335H1340" fill="none" stroke="#2563eb" stroke-width="2.5" marker-end="url(#blue)"/>
+<text x="1200" y="315" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#2563eb" font-weight="400">build / push</text>
+<rect x="80" y="280" width="300" height="110" rx="18" fill="#ffffff" stroke="#dce5ef"/>
+<circle cx="120" cy="320" r="27" fill="#2563eb" opacity=".10"/><g transform="translate(120,320)" fill="none" stroke="#2563eb" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="0" cy="-7" r="7"/><path d="M-13 17v-4a13 13 0 0 1 26 0v4"/></g>
+<text x="158" y="322" font-family="DejaVu Sans, sans-serif" font-size="19" fill="#12223b" font-weight="700">Developer</text>
+<text x="98" y="366" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647c" font-weight="400">React / Express source</text>
+<rect x="480" y="280" width="300" height="110" rx="18" fill="#ffffff" stroke="#dce5ef"/>
+<circle cx="520" cy="320" r="27" fill="#2563eb" opacity=".10"/><g transform="translate(520,320)" fill="none" stroke="#2563eb" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M0-22L22 0 0 22-22 0Z M-9-9L9 9M0 0V13"/><circle cx="-9" cy="-9" r="3"/><circle cx="9" cy="9" r="3"/><circle cx="0" cy="13" r="3"/></g>
+<text x="558" y="322" font-family="DejaVu Sans, sans-serif" font-size="19" fill="#12223b" font-weight="700">GitHub</text>
+<text x="498" y="366" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647c" font-weight="400">Source + Dockerfiles + IaC</text>
+<rect x="880" y="280" width="300" height="110" rx="18" fill="#ffffff" stroke="#dce5ef"/>
+<circle cx="920" cy="320" r="27" fill="#d97706" opacity=".10"/><g transform="translate(920,320)" fill="none" stroke="#d97706" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="-19" y="-21" width="38" height="42" rx="4"/><path d="M-12-10h16M-12 0h16M-12 10h16"/></g>
+<text x="958" y="322" font-family="DejaVu Sans, sans-serif" font-size="19" fill="#12223b" font-weight="700">Jenkins on EC2</text>
+<text x="898" y="366" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647c" font-weight="400">Docker + AWS CLI</text>
+<rect x="1340" y="280" width="300" height="110" rx="18" fill="#ffffff" stroke="#dce5ef"/>
+<circle cx="1380" cy="320" r="27" fill="#7c3aed" opacity=".10"/><g transform="translate(1380,320)" fill="none" stroke="#7c3aed" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M0-21L19-10V11L0 22-19 11V-10Z M-19-10L0 1 19-10M0 1V22"/></g>
+<text x="1418" y="322" font-family="DejaVu Sans, sans-serif" font-size="19" fill="#12223b" font-weight="700">Amazon ECR</text>
+<text x="1358" y="366" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647c" font-weight="400">Container image repositories</text>
+<rect x="55" y="465" width="1690" height="445" rx="24" fill="#edf3fa" stroke="#d3dfed"/>
+<text x="80" y="503" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#3f5675" font-weight="700">APPLICATION RUNTIME  /  TERRAFORM-MANAGED VPC</text>
+<rect x="900" y="525" width="440" height="345" rx="18" fill="#e8f0fa" stroke="#c7d8ec"/>
+<text x="920" y="553" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#3f5675" font-weight="700">ECS FARGATE • PRIVATE SUBNETS</text>
+<path d="M380 700H480" fill="none" stroke="#2563eb" stroke-width="2.5" marker-end="url(#blue)"/>
+<text x="393" y="680" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#2563eb" font-weight="400">HTTP :80</text>
+<path d="M780 700H845V635H940" fill="none" stroke="#2563eb" stroke-width="2.5" marker-end="url(#blue)"/>
+<text x="805" y="615" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#2563eb" font-weight="400">default /</text>
+<path d="M780 700H845V795H940" fill="none" stroke="#2563eb" stroke-width="2.5" marker-end="url(#blue)"/>
+<text x="795" y="825" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#2563eb" font-weight="400">/api and /api/*</text>
+<path d="M1490 390V485H1100V580" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#purple)"/>
+<text x="1195" y="476" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#7c3aed" font-weight="400">pull images</text>
+<path d="M1490 390H1700V795H1300" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#purple)"/>
+<text x="1550" y="780" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#7c3aed" font-weight="400">pull images</text>
+<path d="M1030 390V495H925V525" fill="none" stroke="#d97706" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#orange)"/>
+<text x="1048" y="457" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#d97706" font-weight="400">force new deployments</text>
+<path d="M1300 635H1360V700H1400" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#blue)"/>
+<path d="M1300 795H1360V700H1400" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#blue)"/>
+<rect x="80" y="645" width="300" height="110" rx="18" fill="#ffffff" stroke="#dce5ef"/>
+<circle cx="120" cy="685" r="27" fill="#2563eb" opacity=".10"/><g transform="translate(120,685)" fill="none" stroke="#2563eb" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="0" cy="-7" r="7"/><path d="M-13 17v-4a13 13 0 0 1 26 0v4"/></g>
+<text x="158" y="687" font-family="DejaVu Sans, sans-serif" font-size="19" fill="#12223b" font-weight="700">Browser</text>
+<text x="98" y="731" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647c" font-weight="400">Frontend + API requests</text>
+<rect x="480" y="645" width="300" height="110" rx="18" fill="#ffffff" stroke="#dce5ef"/>
+<circle cx="520" cy="685" r="27" fill="#7c3aed" opacity=".10"/><g transform="translate(520,685)" fill="none" stroke="#7c3aed" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M-20 0H0M0 0V-16H19M0 0V16H19"/><path d="M12-22l7 6-7 6M12 10l7 6-7 6"/></g>
+<text x="558" y="687" font-family="DejaVu Sans, sans-serif" font-size="19" fill="#12223b" font-weight="700">Public ALB</text>
+<text x="498" y="731" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647c" font-weight="400">HTTP listener + health checks</text>
+<rect x="940" y="580" width="360" height="110" rx="18" fill="#ffffff" stroke="#dce5ef"/>
+<circle cx="980" cy="620" r="27" fill="#d97706" opacity=".10"/><g transform="translate(980,620)" fill="none" stroke="#d97706" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M0-21L19-10V11L0 22-19 11V-10Z M-19-10L0 1 19-10M0 1V22"/></g>
+<text x="1018" y="622" font-family="DejaVu Sans, sans-serif" font-size="19" fill="#12223b" font-weight="700">React frontend</text>
+<text x="958" y="666" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647c" font-weight="400">Fargate service • port 3000</text>
+<rect x="940" y="740" width="360" height="110" rx="18" fill="#ffffff" stroke="#dce5ef"/>
+<circle cx="980" cy="780" r="27" fill="#d97706" opacity=".10"/><g transform="translate(980,780)" fill="none" stroke="#d97706" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M0-21L19-10V11L0 22-19 11V-10Z M-19-10L0 1 19-10M0 1V22"/></g>
+<text x="1018" y="782" font-family="DejaVu Sans, sans-serif" font-size="19" fill="#12223b" font-weight="700">Express backend</text>
+<text x="958" y="826" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647c" font-weight="400">Fargate service • port 8080</text>
+<rect x="1400" y="645" width="300" height="110" rx="18" fill="#ffffff" stroke="#dce5ef"/>
+<circle cx="1440" cy="685" r="27" fill="#2563eb" opacity=".10"/><g transform="translate(1440,685)" fill="none" stroke="#2563eb" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="-21" y="-16" width="42" height="29" rx="4"/><path d="M-13 4l7-10 7 7 11-10M0 13v8M-10 21h20"/></g>
+<text x="1478" y="687" font-family="DejaVu Sans, sans-serif" font-size="19" fill="#12223b" font-weight="700">CloudWatch</text>
+<text x="1418" y="731" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647c" font-weight="400">Logs + Container Insights</text>
+<text x="1420" y="843" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#52647c" font-weight="400">Dotted: image, deploy or telemetry flow</text>
+<rect x="55" y="945" width="1690" height="175" rx="24" fill="#edf3fa" stroke="#d3dfed"/>
+<text x="80" y="983" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#3f5675" font-weight="700">DESIGN &amp; OPERATIONS</text>
+<text x="80" y="1023" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#2563eb" font-weight="700">01  REPEATABLE DELIVERY</text>
+<text x="80" y="1057" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647c" font-weight="400">Jenkins pushes build tags and latest.</text>
+<text x="80" y="1087" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647c" font-weight="400">Services redeploy using the latest image tag.</text>
+<text x="630" y="1023" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#2563eb" font-weight="700">02  SCALE WITH LOAD</text>
+<text x="630" y="1057" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647c" font-weight="400">Both services use CPU target tracking.</text>
+<text x="630" y="1087" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647c" font-weight="400">Task limits and target CPU are configurable.</text>
+<text x="1180" y="1023" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#2563eb" font-weight="700">03  NETWORK BOUNDARIES</text>
+<text x="1180" y="1057" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647c" font-weight="400">ALB is public; Fargate tasks are private.</text>
+<text x="1180" y="1087" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647c" font-weight="400">NAT supports outbound image / AWS access.</text>
+<text x="65" y="1175" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647c" font-weight="400">BUILT WITH   Terraform • Docker • ECR • ECS Fargate • Jenkins • ALB • CloudWatch</text>
+</svg>
