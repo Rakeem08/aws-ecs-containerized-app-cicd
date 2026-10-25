@@ -2,6 +2,27 @@
 
 Deployment of a React frontend and Express backend to AWS ECS Fargate using Docker, Terraform, Jenkins, ECR, an Application Load Balancer, and ECS Service Auto Scaling.
 
+## Project at a glance
+
+**Business scenario:** A two-tier web application needs repeatable releases, reliable routing, and room to handle traffic increases without manually managing servers.
+
+**What I built:** Containerized a React frontend and Express API using Docker, published the images to Amazon ECR, and deployed both services on ECS Fargate behind an Application Load Balancer. Terraform defines the AWS infrastructure; Jenkins automates the build-and-deploy workflow.
+
+**Verified outcomes**
+- Deployed and checked two separately containerized application services.
+- Validated frontend scaling from **one to two ECS tasks** during a load test.
+- Diagnosed and fixed frontend-to-backend API routing, then verified application responses.
+
+**Key decisions:** Fargate reduces server administration; the ALB provides path-based routing and health checks; Terraform makes environments reproducible; Jenkins reduces repetitive release steps.
+
+**Production improvements to prioritize:** HTTPS with ACM and a domain, image digest pinning, stronger release rollback controls, and actionable service-level alerts.
+
+**Stack:** AWS ECS Fargate · ECR · ALB · CloudWatch · Terraform · Docker · Jenkins · React · Express
+
+**Explore:** [Architecture](#architecture) · [Infrastructure](#aws-infrastructure) · [Source code](https://github.com/Rakeem08/aws-ecs-containerized-app-cicd)
+
+> **Portfolio environment:** Deployment addresses below document the original lab. They are not guaranteed to be active endpoints.
+
 ## Application URLs
 
 - Frontend: http://rakeem-devops-alb-38784143.us-east-1.elb.amazonaws.com
