@@ -1,4 +1,4 @@
-# Cloud Engineer Tech Challenge 1
+# AWS ECS Fargate — Containerized Application and Jenkins CI/CD
 
 Deployment of a React frontend and Express backend to AWS ECS Fargate using Docker, Terraform, Jenkins, ECR, an Application Load Balancer, and ECS Service Auto Scaling.
 
