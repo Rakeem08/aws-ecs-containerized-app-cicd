@@ -93,7 +93,7 @@ resource "aws_security_group" "backend" {
 
 resource "aws_security_group" "jenkins" {
   name_prefix            = "${var.project_name}-jenkins-"
-  description            = "Allow SSH administration and public Jenkins access"
+  description            = "Allow SSH and Jenkins access from the administrator CIDR"
   vpc_id                 = aws_vpc.main.id
   revoke_rules_on_delete = true
 
@@ -106,11 +106,11 @@ resource "aws_security_group" "jenkins" {
   }
 
   ingress {
-    description = "Public Jenkins web interface"
+    description = "Jenkins web interface from administrator CIDR"
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.ssh_allowed_cidr]
   }
 
   egress {

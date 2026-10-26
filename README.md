@@ -8,10 +8,13 @@ Deployment of a React frontend and Express backend to AWS ECS Fargate using Dock
 
 **What I built:** Containerized a React frontend and Express API using Docker, published the images to Amazon ECR, and deployed both services on ECS Fargate behind an Application Load Balancer. Terraform defines the AWS infrastructure; Jenkins automates the build-and-deploy workflow.
 
-**Verified outcomes**
-- Deployed and checked two separately containerized application services.
-- Validated frontend scaling from **one to two ECS tasks** during a load test.
-- Diagnosed and fixed frontend-to-backend API routing, then verified application responses.
+**Implemented capabilities**
+
+- Terraform defines two private-subnet ECS Fargate services behind an ALB, with CPU-based service autoscaling.
+- Jenkins builds and publishes frontend/backend images, forces new ECS deployments, and waits for service stability.
+- A k6 script ramps traffic to 200 virtual users and checks HTTP responses from `/` and `/api`.
+
+These describe committed configuration. Runtime throughput and scaling outcomes require captured test results; they are not established by the script alone.
 
 **Key decisions:** Fargate reduces server administration; the ALB provides path-based routing and health checks; Terraform makes environments reproducible; Jenkins reduces repetitive release steps.
 
@@ -23,13 +26,13 @@ Deployment of a React frontend and Express backend to AWS ECS Fargate using Dock
 
 > **Portfolio environment:** Deployment addresses below document the original lab. They are not guaranteed to be active endpoints.
 
-## Application URLs
+## Historical Lab URLs
 
 - Frontend: http://rakeem-devops-alb-38784143.us-east-1.elb.amazonaws.com
 - Backend API: http://rakeem-devops-alb-38784143.us-east-1.elb.amazonaws.com/api
 - Jenkins: http://3.215.173.240:8080
 
-Jenkins credentials are provided privately in the submission form and are not stored in this repository.
+These addresses are historical references. Retrieve current addresses from your own Terraform outputs after deployment.
 
 ## Architecture
 
@@ -126,8 +129,8 @@ aws sts get-caller-identity
 Clone the repository:
 
 ```powershell
-git clone https://github.com/Rakeem08/cloud-engineer-tech-challenge-1.git
-cd cloud-engineer-tech-challenge-1
+git clone https://github.com/Rakeem08/aws-ecs-containerized-app-cicd.git
+cd aws-ecs-containerized-app-cicd
 ```
 
 ### Backend
@@ -269,29 +272,30 @@ Display the deployment outputs:
 terraform -chdir=terraform output
 ```
 
-## Jenkins Infrastructure
+## Jenkins Infrastructure and Setup
 
-Jenkins runs as a Docker container on an Amazon Linux 2023 EC2 instance.
+Terraform creates an Amazon Linux 2023 EC2 host, an Elastic IP, a security group, and an EC2 IAM instance profile. Its startup script installs Docker, Git, jq, and unzip, starts Docker, and adds `ec2-user` to the Docker group.
 
-The supporting infrastructure includes:
+**Manual prerequisite:** Terraform does not install Jenkins or build/run a custom Jenkins image. This repository does not include that image's Dockerfile or container launch configuration. Before running the pipeline, install and configure Jenkins on the host or supply your own documented container setup.
 
-- EC2 instance in a public subnet
-- Elastic IP address
-- Security group for SSH and Jenkins port 8080
-- Persistent Docker volume for Jenkins data
-- EC2 IAM instance profile
-- Docker socket mounted into the Jenkins container
-- Docker CLI, AWS CLI, Git, and jq installed in the custom Jenkins image
+The Jenkins execution environment must provide:
 
-The EC2 IAM role allows Jenkins to work with ECR and ECS without storing permanent AWS access keys inside Jenkins.
+- Git, Docker CLI, AWS CLI, and access to a Docker daemon
+- AWS access through the EC2 instance role
+- Persistent Jenkins storage and the Git/Pipeline plugins
+- A Pipeline job using this public repository, branch `*/main`, and script path `Jenkinsfile`
 
-The private GitHub token is stored securely in Jenkins Credentials and is not included in this repository.
+Public HTTPS checkout does not require a GitHub token. If you choose authenticated checkout, keep the read-only token in Jenkins Credentials.
+
+Both SSH and the Jenkins UI on port `8080` are restricted to `ssh_allowed_cidr`. Set it to your administrator IPv4 address followed by `/32`. The pipeline polls GitHub, so it does not need an internet-accessible webhook endpoint.
+
+The EC2 IAM role supports AWS access without storing permanent AWS access keys in Jenkins. Verify the execution environment with `aws sts get-caller-identity` and `docker info` before starting a build.
 
 ## Jenkins Pipeline
 
 The `Jenkinsfile` automates:
 
-1. Checking out the private GitHub repository
+1. Checking out the public GitHub repository
 2. Verifying Docker, AWS CLI, and AWS identity
 3. Authenticating with Amazon ECR
 4. Building frontend and backend images
@@ -300,26 +304,15 @@ The `Jenkinsfile` automates:
 7. Triggering new ECS service deployments
 8. Waiting for both ECS services to become stable
 
-The GitHub repository webhook sends push events to:
+The pipeline configures `pollSCM('H/5 * * * *')` to check for SCM changes approximately every five minutes. Run the job once manually so Jenkins loads its trigger configuration. Select `*/main` in the job's SCM configuration.
 
-```text
-http://JENKINS_PUBLIC_IP:8080/github-webhook/
-```
-
-Every push to `main` automatically starts the Jenkins deployment pipeline.
+The pipeline publishes build-number and `latest` tags, but the committed ECS task definitions use `latest`. Deployment forces a restart using that tag; it does not create task-definition revisions pinned to each build number. Pinning tags or digests and testing rollback remain improvements.
 
 ## Load Testing and Auto Scaling
 
-Grafana k6 was used to test ECS Service Auto Scaling.
+The committed k6 script defines a one-minute ramp to 50 virtual users, five minutes ramping to 200, and a one-minute ramp down to zero. It requests both `/` and `/api` and checks for HTTP 200.
 
-The test:
-
-- Gradually increased traffic to 200 virtual users
-- Sent requests to both `/` and `/api`
-- Completed approximately 180,000 iterations
-- Caused the frontend service to scale from one task to two tasks
-- Returned the frontend service to one task after traffic stopped
-- Confirmed the scaling activity completed successfully
+Capture the k6 summary and ECS scaling activity from your own deployment to verify task-count changes. The script alone does not establish a particular iteration count or prove scaling occurred.
 
 Run the test from the repository root:
 
@@ -350,21 +343,21 @@ aws application-autoscaling describe-scaling-activities --service-namespace ecs 
 - ECS tasks run in private subnets.
 - Only the load balancer can reach the ECS container ports.
 - Jenkins uses an IAM role instead of permanent AWS credentials.
-- SSH access is restricted to a configured public IP address.
-- GitHub tokens are stored in Jenkins Credentials.
+- SSH and the Jenkins UI are restricted to the configured administrator CIDR.
+- Public repository checkout requires no GitHub token.
 - Terraform state, private variable files, and private keys are excluded from Git.
 - ECR image scanning is enabled.
 
 ## Cleanup
 
-AWS resources in this project create charges. After grading is complete, remove the infrastructure:
+AWS resources in this project create charges. When lab testing is complete, review a destroy plan and remove resources you no longer need:
 
 ```powershell
 terraform -chdir=terraform plan -destroy -out=destroy.tfplan
 terraform -chdir=terraform apply "destroy.tfplan"
 ```
 
-Do not destroy the infrastructure before the project has been graded.
+Preserve any logs or Jenkins data you need before cleanup.
 
 ## Author
 

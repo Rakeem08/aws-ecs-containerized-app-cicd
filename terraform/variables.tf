@@ -29,8 +29,13 @@ variable "key_name" {
 }
 
 variable "ssh_allowed_cidr" {
-  description = "Public IP address allowed to SSH into Jenkins"
+  description = "Administrator IPv4 /32 CIDR allowed to access Jenkins and SSH"
   type        = string
+
+  validation {
+    condition     = can(cidrnetmask(var.ssh_allowed_cidr)) && can(regex("/32$", var.ssh_allowed_cidr))
+    error_message = "Provide the administrator public IPv4 address followed by /32."
+  }
 }
 
 variable "frontend_port" {

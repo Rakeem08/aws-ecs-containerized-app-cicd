@@ -7,6 +7,10 @@ pipeline {
         timeout(time: 30, unit: 'MINUTES')
     }
 
+    triggers {
+        pollSCM('H/5 * * * *')
+    }
+
     environment {
         AWS_REGION          = 'us-east-1'
         ECR_REGISTRY        = '067514125942.dkr.ecr.us-east-1.amazonaws.com'
